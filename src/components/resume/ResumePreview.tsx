@@ -154,7 +154,7 @@ export const ResumePreview = ({ data }: Props) => {
                   {data.skills.filter(skill => skill && skill.trim()).map((skill, index) => (
                     <span
                       key={index}
-                      className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium"
+                      className="bg-blue-200 text-primary px-3 py-1 rounded-full text-sm font-medium"
                     >
                       {skill}
                     </span>

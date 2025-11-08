@@ -15,7 +15,12 @@ import { Plus, Trash2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
-import type { CustomSection, Education, ResumeData, WorkExperience } from "@/types/resume";
+import type {
+  CustomSection,
+  Education,
+  ResumeData,
+  WorkExperience,
+} from "@/types/resume";
 
 type Props = {
   data: ResumeData;
@@ -41,13 +46,13 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
   };
 
   // --- Local state for skills input (smooth typing, live preview) ------------
-  const [skillsInput, setSkillsInput] = useState(
-    Array.isArray(data.skills) ? data.skills.join(", ") : ""
-  );
-
-  useEffect(() => {
-    setSkillsInput(Array.isArray(data.skills) ? data.skills.join(", ") : "");
-  }, [data.skills]);
+  // const [skillsInput, setSkillsInput] = useState(
+  //   Array.isArray(data.skills) ? data.skills.join(", ") : ""
+  // );
+  const [skillsInput, setSkillsInput] = useState("");
+  // useEffect(() => {
+  //   setSkillsInput(Array.isArray(data.skills) ? data.skills.join(", ") : "");
+  // }, [data.skills]);
 
   // --- Work Experience CRUD --------------------------------------------------
   const addWorkExperience = () => {
@@ -63,7 +68,11 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
     updateField("work_experience", [...data.work_experience, newExp]);
   };
 
-  const updateWorkExperience = (id: string, field: keyof WorkExperience, value: any) => {
+  const updateWorkExperience = (
+    id: string,
+    field: keyof WorkExperience,
+    value: any
+  ) => {
     const updated = data.work_experience.map((exp) =>
       exp.id === id ? { ...exp, [field]: value } : exp
     );
@@ -115,7 +124,11 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
     updateField("custom_sections", [...data.custom_sections, newSection]);
   };
 
-  const updateCustomSection = (id: string, field: keyof CustomSection, value: any) => {
+  const updateCustomSection = (
+    id: string,
+    field: keyof CustomSection,
+    value: any
+  ) => {
     const updated = data.custom_sections.map((section) =>
       section.id === id ? { ...section, [field]: value } : section
     );
@@ -142,7 +155,11 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
         <ScrollArea className="h-[calc(100vh-200px)]">
           <div className="p-4 md:p-6">
             {/* IMPORTANT: disable Tabs' keyboard trap to allow comma typing */}
-            <Tabs defaultValue="basic" className="w-full" data-orientation="vertical">
+            <Tabs
+              defaultValue="basic"
+              className="w-full"
+              data-orientation="vertical"
+            >
               <TabsList className="grid w-full grid-cols-4 rounded-lg bg-gray-100 p-1 dark:bg-gray-800">
                 <TabsTrigger
                   value="basic"
@@ -173,7 +190,9 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
               {/* BASIC */}
               <TabsContent value="basic" className="mt-4 space-y-5">
                 <div className="space-y-2">
-                  <Label className="text-gray-800 dark:text-gray-200">Resume Title</Label>
+                  <Label className="text-gray-800 dark:text-gray-200">
+                    Resume Title
+                  </Label>
                   <Input
                     className="h-11 border-gray-300 dark:border-gray-700"
                     value={data.title}
@@ -183,10 +202,14 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-gray-800 dark:text-gray-200">Template</Label>
+                  <Label className="text-gray-800 dark:text-gray-200">
+                    Template
+                  </Label>
                   <Select
                     value={data.template_type}
-                    onValueChange={(value) => updateField("template_type", value)}
+                    onValueChange={(value) =>
+                      updateField("template_type", value)
+                    }
                   >
                     <SelectTrigger className="h-11 border-gray-300 dark:border-gray-700">
                       <SelectValue placeholder="Select a template" />
@@ -201,7 +224,9 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-gray-800 dark:text-gray-200">Full Name</Label>
+                  <Label className="text-gray-800 dark:text-gray-200">
+                    Full Name
+                  </Label>
                   <Input
                     className="h-11 border-gray-300 dark:border-gray-700"
                     value={data.full_name || ""}
@@ -212,7 +237,9 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label className="text-gray-800 dark:text-gray-200">Email</Label>
+                    <Label className="text-gray-800 dark:text-gray-200">
+                      Email
+                    </Label>
                     <Input
                       type="email"
                       className="h-11 border-gray-300 dark:border-gray-700"
@@ -222,7 +249,9 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-gray-800 dark:text-gray-200">Phone</Label>
+                    <Label className="text-gray-800 dark:text-gray-200">
+                      Phone
+                    </Label>
                     <Input
                       className="h-11 border-gray-300 dark:border-gray-700"
                       value={data.phone || ""}
@@ -233,7 +262,9 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-gray-800 dark:text-gray-200">Location</Label>
+                  <Label className="text-gray-800 dark:text-gray-200">
+                    Location
+                  </Label>
                   <Input
                     className="h-11 border-gray-300 dark:border-gray-700"
                     value={data.location || ""}
@@ -244,27 +275,37 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label className="text-gray-800 dark:text-gray-200">LinkedIn URL</Label>
+                    <Label className="text-gray-800 dark:text-gray-200">
+                      LinkedIn URL
+                    </Label>
                     <Input
                       className="h-11 border-gray-300 dark:border-gray-700"
                       value={data.linkedin_url || ""}
-                      onChange={(e) => updateField("linkedin_url", e.target.value)}
+                      onChange={(e) =>
+                        updateField("linkedin_url", e.target.value)
+                      }
                       placeholder="linkedin.com/in/johndoe"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-gray-800 dark:text-gray-200">Portfolio URL</Label>
+                    <Label className="text-gray-800 dark:text-gray-200">
+                      Portfolio URL
+                    </Label>
                     <Input
                       className="h-11 border-gray-300 dark:border-gray-700"
                       value={data.portfolio_url || ""}
-                      onChange={(e) => updateField("portfolio_url", e.target.value)}
+                      onChange={(e) =>
+                        updateField("portfolio_url", e.target.value)
+                      }
                       placeholder="johndoe.com"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-gray-800 dark:text-gray-200">Professional Summary</Label>
+                  <Label className="text-gray-800 dark:text-gray-200">
+                    Professional Summary
+                  </Label>
                   <Textarea
                     className="border-gray-300 dark:border-gray-700"
                     value={data.summary || ""}
@@ -276,17 +317,70 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
 
                 {/* SKILLS */}
                 <div className="space-y-2">
-                  <Label className="text-gray-800 dark:text-gray-200">Skills (comma-separated)</Label>
-                  <Textarea
-                    className="border-gray-300 dark:border-gray-700 min-h-[80px] resize-none"
-                    value={skillsInput}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setSkillsInput(val);
-                      updateField("skills", val);
-                    }}
-                    placeholder="JavaScript, React, Node.js, etc."
-                  />
+                  <Label className="text-gray-800 dark:text-gray-200">
+                    Skills
+                  </Label>
+                  <div className="flex flex-wrap items-center gap-2 border border-gray-300 dark:border-gray-700 rounded-md p-2 min-h-[56px]">
+                    {data.skills.map((skill, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center gap-1 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium"
+                      >
+                        {skill}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newSkills = data.skills.filter(
+                              (_, i) => i !== index
+                            );
+                            updateField("skills", newSkills);
+                          }}
+                          className="text-primary hover:text-primary/80"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+
+                    <input
+                      type="text"
+                      value={skillsInput}
+                      onChange={(e) => setSkillsInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        const isSeparator =
+                          e.key === "," || e.key === " " || e.key === "Enter";
+
+                        if (isSeparator) {
+                          e.preventDefault();
+                          const newSkill = skillsInput.trim();
+
+                          // Only add if not empty and not already present
+                          if (newSkill && !data.skills.includes(newSkill)) {
+                            updateField("skills", [...data.skills, newSkill]);
+                            setSkillsInput(""); // Clear input immediately
+                          } else if (!newSkill) {
+                            // If input is empty, just clear it to remove any separators
+                            setSkillsInput("");
+                          }
+                          return;
+                        }
+
+                        // Backspace deletes last skill if input empty
+                        if (
+                          e.key === "Backspace" &&
+                          !skillsInput &&
+                          data.skills.length > 0
+                        ) {
+                          e.preventDefault();
+                          const updated = [...data.skills];
+                          updated.pop();
+                          updateField("skills", updated);
+                        }
+                      }}
+                      placeholder="Type a skill and press comma, space, or Enter..."
+                      className="flex-grow border-none focus:ring-0 outline-none bg-transparent text-sm text-gray-900 dark:text-gray-100 min-w-[100px]"
+                    />
+                  </div>
                 </div>
               </TabsContent>
 
@@ -303,8 +397,14 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                     className="space-y-3 border border-gray-200 bg-white/80 p-4 shadow-sm transition hover:shadow-md dark:border-gray-800 dark:bg-gray-900/70"
                   >
                     <div className="flex items-start justify-between">
-                      <h4 className="font-semibold text-gray-900 dark:text-gray-100">Work Experience</h4>
-                      <Button variant="ghost" size="icon" onClick={() => removeWorkExperience(exp.id)}>
+                      <h4 className="font-semibold text-gray-900 dark:text-gray-100">
+                        Work Experience
+                      </h4>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => removeWorkExperience(exp.id)}
+                      >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
@@ -313,13 +413,17 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                       className="h-11 border-gray-300 dark:border-gray-700"
                       placeholder="Company Name"
                       value={exp.company}
-                      onChange={(e) => updateWorkExperience(exp.id, "company", e.target.value)}
+                      onChange={(e) =>
+                        updateWorkExperience(exp.id, "company", e.target.value)
+                      }
                     />
                     <Input
                       className="h-11 border-gray-300 dark:border-gray-700"
                       placeholder="Position"
                       value={exp.position}
-                      onChange={(e) => updateWorkExperience(exp.id, "position", e.target.value)}
+                      onChange={(e) =>
+                        updateWorkExperience(exp.id, "position", e.target.value)
+                      }
                     />
 
                     <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
@@ -328,14 +432,26 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                         className="h-11 border-gray-300 dark:border-gray-700"
                         placeholder="Start Date"
                         value={exp.startDate}
-                        onChange={(e) => updateWorkExperience(exp.id, "startDate", e.target.value)}
+                        onChange={(e) =>
+                          updateWorkExperience(
+                            exp.id,
+                            "startDate",
+                            e.target.value
+                          )
+                        }
                       />
                       <Input
                         type="month"
                         className="h-11 border-gray-300 dark:border-gray-700"
                         placeholder="End Date"
                         value={exp.endDate}
-                        onChange={(e) => updateWorkExperience(exp.id, "endDate", e.target.value)}
+                        onChange={(e) =>
+                          updateWorkExperience(
+                            exp.id,
+                            "endDate",
+                            e.target.value
+                          )
+                        }
                         disabled={exp.current}
                       />
                     </div>
@@ -345,7 +461,11 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                         id={`current-${exp.id}`}
                         checked={exp.current}
                         onCheckedChange={(checked) =>
-                          updateWorkExperience(exp.id, "current", Boolean(checked))
+                          updateWorkExperience(
+                            exp.id,
+                            "current",
+                            Boolean(checked)
+                          )
                         }
                       />
                       <Label
@@ -360,7 +480,13 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                       className="border-gray-300 dark:border-gray-700"
                       placeholder="Job description and achievements..."
                       value={exp.description}
-                      onChange={(e) => updateWorkExperience(exp.id, "description", e.target.value)}
+                      onChange={(e) =>
+                        updateWorkExperience(
+                          exp.id,
+                          "description",
+                          e.target.value
+                        )
+                      }
                       rows={4}
                     />
                   </Card>
@@ -380,8 +506,14 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                     className="space-y-3 border border-gray-200 bg-white/80 p-4 shadow-sm transition hover:shadow-md dark:border-gray-800 dark:bg-gray-900/70"
                   >
                     <div className="flex items-start justify-between">
-                      <h4 className="font-semibold text-gray-900 dark:text-gray-100">Education</h4>
-                      <Button variant="ghost" size="icon" onClick={() => removeEducation(edu.id)}>
+                      <h4 className="font-semibold text-gray-900 dark:text-gray-100">
+                        Education
+                      </h4>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => removeEducation(edu.id)}
+                      >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
@@ -390,19 +522,25 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                       className="h-11 border-gray-300 dark:border-gray-700"
                       placeholder="Institution Name"
                       value={edu.institution}
-                      onChange={(e) => updateEducation(edu.id, "institution", e.target.value)}
+                      onChange={(e) =>
+                        updateEducation(edu.id, "institution", e.target.value)
+                      }
                     />
                     <Input
                       className="h-11 border-gray-300 dark:border-gray-700"
                       placeholder="Degree"
                       value={edu.degree}
-                      onChange={(e) => updateEducation(edu.id, "degree", e.target.value)}
+                      onChange={(e) =>
+                        updateEducation(edu.id, "degree", e.target.value)
+                      }
                     />
                     <Input
                       className="h-11 border-gray-300 dark:border-gray-700"
                       placeholder="Field of Study"
                       value={edu.field}
-                      onChange={(e) => updateEducation(edu.id, "field", e.target.value)}
+                      onChange={(e) =>
+                        updateEducation(edu.id, "field", e.target.value)
+                      }
                     />
 
                     <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
@@ -411,14 +549,18 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                         className="h-11 border-gray-300 dark:border-gray-700"
                         placeholder="Start Date"
                         value={edu.startDate}
-                        onChange={(e) => updateEducation(edu.id, "startDate", e.target.value)}
+                        onChange={(e) =>
+                          updateEducation(edu.id, "startDate", e.target.value)
+                        }
                       />
                       <Input
                         type="month"
                         className="h-11 border-gray-300 dark:border-gray-700"
                         placeholder="End Date"
                         value={edu.endDate}
-                        onChange={(e) => updateEducation(edu.id, "endDate", e.target.value)}
+                        onChange={(e) =>
+                          updateEducation(edu.id, "endDate", e.target.value)
+                        }
                         disabled={edu.current}
                       />
                     </div>
@@ -459,9 +601,19 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                         className="h-11 border-gray-300 font-semibold dark:border-gray-700"
                         placeholder="Section Title"
                         value={section.title}
-                        onChange={(e) => updateCustomSection(section.id, "title", e.target.value)}
+                        onChange={(e) =>
+                          updateCustomSection(
+                            section.id,
+                            "title",
+                            e.target.value
+                          )
+                        }
                       />
-                      <Button variant="ghost" size="icon" onClick={() => removeCustomSection(section.id)}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => removeCustomSection(section.id)}
+                      >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
@@ -470,7 +622,13 @@ export const ResumeEditor = ({ data, onChange }: Props) => {
                       className="border-gray-300 dark:border-gray-700"
                       placeholder="Section content..."
                       value={section.content}
-                      onChange={(e) => updateCustomSection(section.id, "content", e.target.value)}
+                      onChange={(e) =>
+                        updateCustomSection(
+                          section.id,
+                          "content",
+                          e.target.value
+                        )
+                      }
                       rows={5}
                     />
                   </Card>
